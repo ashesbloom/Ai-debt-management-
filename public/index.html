@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Debt Coach | Enhanced</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-glow"></div> <header>
+        <h1>AI Debt Management Coach</h1>
+        <p>Add your debts, then chat with the AI coach for strategies & insights!</p>
+    </header>
+
+    <main class="container">
+        <section id="debt-manager" class="card">
+            <div id="add-debt-section">
+                <h2>Add a Debt</h2>
+                <form id="debt-form">
+                    <div class="form-group">
+                        <label for="debt-name">Creditor Name:</label>
+                        <input type="text" id="debt-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="debt-balance">Current Balance (Rs.):</label>
+                        <input type="number" id="debt-balance" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="debt-apr">Interest Rate (APR %):</label>
+                        <input type="number" id="debt-apr" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="debt-min-payment">Minimum Monthly Payment (Rs.):</label>
+                        <input type="number" id="debt-min-payment" step="0.01" min="0" required>
+                    </div>
+                    <button type="submit" class="button-primary">Add Debt</button>
+                </form>
+                 <div id="error-message-form" class="error" style="display: none; margin-top: 10px;"></div>
+            </div>
+
+            <div id="debt-list-section">
+                <h2>Your Debts</h2>
+                <div id="debt-list">
+                    <p>No debts added yet.</p>
+                 </div>
+                <button id="clear-debts-btn" class="button-danger" style="display: none;">Clear All Debts</button>
+            </div>
+        </section>
+
+        <section id="coach-section" class="card">
+            <h2>Chat with Your AI Coach</h2>
+            <div id="chat-container">
+                <div id="chat-history">
+                    <div class="message ai-message">
+                        <p>Hello! Add your debts above. Then, ask me questions like "Explain the Snowball method", "Which strategy should I use?", or "What if I pay an extra Rs. 500 per month?".</p>
+                    </div>
+                </div>
+                 <div id="loading-indicator" style="display: none;">
+                     <div class="spinner"></div>
+                     <span>Coach is thinking...</span>
+                 </div>
+                 <div id="chat-input-area">
+                     <label for="chat-input" class="sr-only">Your message:</label>
+                     <input type="text" id="chat-input" placeholder="Ask the coach (e.g impact of extra Rs. 1000)...">
+                     <button id="send-chat-btn" class="button-primary"></button>
+                 </div>
+                 <div id="error-message-chat" class="error" style="display: none;"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Disclaimer: This tool provides informational explanations and estimations only based on the data you provide and your inputs. It does not constitute financial advice. Always consult a qualified financial professional.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
