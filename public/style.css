@@ -2,29 +2,34 @@
 
 /* --- Base & Typography --- */
 :root {
-    --primary-color: #0d6efd;
+    --primary-color: #0d6efd; /* Bootstrap Blue */
     --primary-color-dark: #0a58ca;
-    --secondary-color: #6c757d;
-    --success-color: #198754;
-    --danger-color: #dc3545;
-    --light-bg: #f0f2f5; /* Slightly softer light bg */
-    --dark-text: #1c1e21; /* Slightly darker text */
-    --light-text: #ffffff; /* Pure white text for contrast */
-    --border-color: rgba(255, 255, 255, 0.3); /* Light border for glass */
-    --card-bg: rgba(255, 255, 255, 0.65); /* More transparent card */
-    --input-bg: rgba(255, 255, 255, 0.8); /* Input background */
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --glow-color-1: rgba(13, 110, 253, 0.18); /* Slightly stronger glow */
-    --glow-color-2: rgba(108, 117, 125, 0.12);
+    --secondary-color: #6c757d; /* Bootstrap Gray */
+    --success-color: #198754; /* Bootstrap Green */
+    --danger-color: #dc3545; /* Bootstrap Red */
+    --light-bg: #eef2f7; /* Slightly cooler light background */
+    --dark-text: #212529; /* Bootstrap Dark */
+    --light-text: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.4); /* Slightly more visible border */
+    --card-bg: rgba(255, 255, 255, 0.75); /* Adjusted card transparency */
+    --input-bg: rgba(255, 255, 255, 0.9); /* Input background */
+    --shadow-color: rgba(0, 0, 0, 0.12); /* Slightly softer shadow */
+    --glow-color-1: rgba(13, 110, 253, 0.15); /* Primary glow */
+    --glow-color-2: rgba(108, 117, 125, 0.1);  /* Secondary glow */
 
     /* Header/Footer Transparency */
-    --header-bg-start: rgba(43, 61, 86, 0.301); /* Adjusted alpha */
-    --header-bg-end: rgba(53, 73, 104, 0.8);
-    --footer-bg: rgba(52, 58, 64, 0.75); /* Adjusted alpha */
+    --header-bg-start: rgba(43, 61, 86, 0.8); /* Darker start */
+    --header-bg-end: rgba(53, 73, 104, 0.9); /* Darker end */
+    --footer-bg: rgba(52, 58, 64, 0.85); /* Darker footer */
 
-    --blur-intensity: 8px; /* Control blur amount */
-
+    --blur-intensity: 10px; /* Control blur amount */
     --font-family-main: 'Poppins', sans-serif;
+    --border-radius-base: 10px; /* Consistent border radius */
+    --border-radius-large: 16px; /* Larger radius for cards */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; /* Apply box-sizing universally */
 }
 
 body {
@@ -34,74 +39,75 @@ body {
     padding: 0;
     background-color: var(--light-bg);
     color: var(--dark-text);
-    position: relative;
-    overflow-x: hidden;
+    position: relative; /* Needed for background glow positioning */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex;
+    flex-direction: column; /* Allow footer to stick to bottom */
 }
 
 /* --- Subtle Background Ambient Glow --- */
 .background-glow {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, var(--glow-color-1) 0%, transparent 45%), /* Adjusted gradient */
-                radial-gradient(circle at top right, var(--glow-color-2) 0%, transparent 55%);
-    z-index: -1;
-    opacity: 0.6; /* Increased opacity */
-    animation: subtleGlow 28s ease-in-out infinite alternate; /* Adjusted speed */
+    position: fixed; /* Use fixed to keep it static during scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 20%, var(--glow-color-1) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, var(--glow-color-2) 0%, transparent 50%);
+    z-index: -1; /* Place behind everything */
+    opacity: 0.7;
+    animation: subtleGlow 35s ease-in-out infinite alternate;
+    pointer-events: none; /* Make it non-interactive */
 }
 
 @keyframes subtleGlow {
-    0% { transform: rotate(-5deg) scale(1); } /* Start rotated slightly */
-    100% { transform: rotate(5deg) scale(1.08); } /* More subtle range */
+    0% { transform: scale(1.1) rotate(-3deg); opacity: 0.6; }
+    100% { transform: scale(1) rotate(3deg); opacity: 0.8; }
 }
-
 
 /* --- Header & Footer (Glass Effect) --- */
 header {
     background: linear-gradient(135deg, var(--header-bg-start), var(--header-bg-end));
     color: var(--light-text);
-    padding: 1.5em 2em;
-    max-height: 90px;
     text-align: center;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Slightly stronger shadow */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.25);
     position: sticky; /* Make header sticky */
     top: 0;
-    z-index: 100; /* Ensure header is above content */
-    border-bottom: 1px solid var(--border-color); /* Glass edge */
+    z-index: 100;
+    border-bottom: 1px solid var(--border-color);
     /* Glass Effect */
     backdrop-filter: blur(var(--blur-intensity));
     -webkit-backdrop-filter: blur(var(--blur-intensity));
-    display: flex; /* Use flexbox */
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally (text-align: center; also works) */
-    padding: 1em 2em; /* Reduced vertical padding slightly */
-    min-height: 80px; /* Use min-height instead of max-height */
-    text-align: center; /* Ensure text alignment remains center */
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.2em 2em; /* Adjusted padding */
+    min-height: 85px;
 }
 header h1 {
-    margin-bottom: 0.1em;
+    margin: 0 0 0.1em 0; /* Remove default margins */
     font-weight: 600;
+    font-size: 1.8em; /* Slightly larger */
     animation: fadeInDown 0.8s 0.2s ease-out backwards;
 }
 header p {
-    opacity: 0.95; /* More opaque text */
-    margin-top: 0.1em;
+    opacity: 0.9;
+    margin: 0; /* Remove default margins */
     font-weight: 300;
+    font-size: 0.95em;
     animation: fadeInUp 0.8s 0.4s ease-out backwards;
 }
 
 footer {
-    margin-top: 2.5em;
-    padding: 1em 2em;
-    font-size: 0.85em;
+    margin-top: auto; /* Push footer to bottom */
+    padding: 1.2em 2em;
+    font-size: 0.8em;
     background-color: var(--footer-bg);
-    color: rgba(255, 255, 255, 0.85); /* More opaque text */
+    color: rgba(255, 255, 255, 0.8);
     text-align: center;
-    border-top: 1px solid var(--border-color); /* Glass edge */
+    border-top: 1px solid var(--border-color);
     /* Glass Effect */
     backdrop-filter: blur(var(--blur-intensity));
     -webkit-backdrop-filter: blur(var(--blur-intensity));
@@ -109,61 +115,61 @@ footer {
 
 /* --- Layout & Cards (Glass Effect) --- */
 main.container {
-    max-width: 1050px;
-    margin: 30px auto;
-    padding: 0 15px;
+    flex-grow: 1; /* Allow main content to fill space */
+    /* --- REMOVED: max-width: 1140px; --- */
+    margin: 35px auto; /* Keep top/bottom margin, auto centers if width is less than 100% (won't happen now) */
+    padding: 0 20px; /* Keep side padding */
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-}
-@media (max-width: 900px) {
-    main.container { grid-template-columns: 1fr; gap: 20px; }
+    grid-template-columns: 1fr 1fr; /* Keep two columns */
+    gap: 30px;
+    align-items: start;
+    width: 100%; /* Ensure container takes full width */
 }
 
 .card {
-    background-color: var(--card-bg); /* Use transparent background */
-    padding: 25px 30px;
-    border-radius: 12px; /* Slightly more rounding */
-    box-shadow: 0 8px 25px var(--shadow-color); /* Adjusted shadow */
+    background-color: var(--card-bg);
+    padding: 30px 35px;
+    border-radius: var(--border-radius-large);
+    box-shadow: 0 10px 30px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
-    border: 1px solid var(--border-color); /* Glass edge */
-    /* Glass Effect */
+    border: 1px solid var(--border-color);
     backdrop-filter: blur(var(--blur-intensity));
     -webkit-backdrop-filter: blur(var(--blur-intensity));
-    /* Card Entrance Animation */
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease-out forwards;
-}
-#debt-manager.card { animation-delay: 0.6s; }
-#coach-section.card {
-    animation-delay: 0.8s;
-    position: relative; /* Crucial for absolute positioning of loading indicator */
+    transform: translateY(25px);
+    animation: fadeInUp 0.7s ease-out forwards;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
+/* Stagger animations */
+#debt-manager.card { animation-delay: 0.6s; }
+#coach-section.card { animation-delay: 0.8s; }
+
 .card:hover {
-     transform: translateY(-6px) scale(1.01);
-     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+     transform: translateY(-8px);
+     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 h2 {
     color: var(--primary-color-dark);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Darker border inside card */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 0.6em;
-    margin-top: 0;
-    margin-bottom: 1.8em;
+    margin: 0 0 1.5em 0;
     font-weight: 600;
+    font-size: 1.4em;
 }
 
 /* --- Forms & Inputs --- */
-.form-group { /* Keep existing animation */
-    margin-bottom: 18px;
+.form-group {
+    margin-bottom: 20px;
     animation: formGroupFadeIn 0.5s ease-out forwards;
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(-15px);
 }
-/* Keep stagger delays */
+/* Stagger delays */
 #add-debt-section .form-group:nth-child(1) { animation-delay: 0.9s; }
 #add-debt-section .form-group:nth-child(2) { animation-delay: 1.0s; }
 #add-debt-section .form-group:nth-child(3) { animation-delay: 1.1s; }
@@ -171,138 +177,235 @@ h2 {
 #add-debt-section button[type="submit"] {
      animation: formGroupFadeIn 0.5s 1.3s ease-out forwards;
      opacity: 0;
-     transform: translateX(-10px);
+     transform: translateX(-15px);
 }
 
-
-label { /* Keep as is */
-    display: block; margin-bottom: 6px; font-weight: 400;
-    font-size: 0.95em; color: var(--secondary-color);
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 0.9em;
+    color: var(--secondary-color);
 }
 
 input[type="text"],
 input[type="number"] {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--border-color); /* Light border */
-    border-radius: 6px;
+    padding: 12px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius-base);
     font-size: 1em;
     font-family: var(--font-family-main);
-    box-sizing: border-box;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
-    background-color: var(--input-bg); /* Use variable */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    background-color: var(--input-bg);
 }
 input[type="text"]:focus,
 input[type="number"]:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
     outline: none;
-    transform: scale(1.01);
-    background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque on focus */
+    background-color: rgba(255, 255, 255, 0.98);
 }
-
 
 /* --- Buttons --- */
-/* Keep existing button styles and animations */
-button { /* Keep basic structure */
-    border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer;
-    font-size: 1em; font-weight: 400; font-family: var(--font-family-main);
-    transition: all 0.2s ease; box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+button {
+    border: none;
+    padding: 12px 22px;
+    border-radius: var(--border-radius-base);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: var(--font-family-main);
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
 }
-button:hover { /* Keep hover */
-    transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-    filter: brightness(1.1);
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0,0,0,0.1);
+    filter: brightness(1.05);
 }
-button:active { /* Keep active */
-    transform: translateY(0px) scale(0.98); box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    filter: brightness(0.95);
+button:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    filter: brightness(0.98);
 }
-button:disabled { /* Keep disabled */
-     background-color: #ced4da; cursor: not-allowed; transform: none;
-     box-shadow: none; color: var(--secondary-color); filter: none;
+button:disabled {
+     background-color: #ced4da !important;
+     background-image: none !important;
+     cursor: not-allowed;
+     transform: none;
+     box-shadow: none;
+     color: var(--secondary-color);
+     filter: none;
+     opacity: 0.65;
 }
-.button-primary { /* Keep primary */
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-color-dark));
+.button-primary {
+    background: linear-gradient(145deg, var(--primary-color), var(--primary-color-dark));
     color: white;
 }
-.button-danger { /* Keep danger */
-    background: linear-gradient(135deg, var(--danger-color), #b02a37);
-    color: white; margin-top: 10px;
+.button-danger {
+    background: linear-gradient(145deg, var(--danger-color), #b02a37);
+    color: white;
 }
-/* #send-chat-btn{
-
-} */
-
+.button-secondary {
+    background: linear-gradient(145deg, var(--secondary-color), #5a6268);
+    color: white;
+    font-size: 0.9em;
+    padding: 10px 18px;
+}
 
 /* --- Debt List --- */
-/* Keep existing debt list styles and hover effects */
-#debt-list ul { list-style: none; padding: 0; margin: 0; }
+#debt-list-section {
+    margin-top: 25px;
+}
+
+#debt-list {
+    margin-top: 1em;
+}
+
+#debt-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 #debt-list li.debt-item {
-    background-color: rgba(253, 253, 255, 0.7); /* Slightly transparent list items */
-    border: 1px solid rgba(233, 236, 239, 0.8);
-    padding: 12px 15px; margin-bottom: 10px; border-radius: 6px;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: var(--border-radius-base);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    opacity: 1; transform: translateX(0);
 }
 #debt-list li.debt-item:hover {
-    background-color: rgba(241, 243, 245, 0.9); transform: translateX(5px);
-    box-shadow: 3px 3px 8px rgba(0,0,0,0.05);
+    background-color: rgba(248, 249, 250, 0.95);
+    transform: translateX(4px);
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.06);
 }
-.debt-name { font-weight: 600; color: var(--primary-color-dark); margin-right: 15px; }
-.debt-details { font-size: 0.9em; color: var(--secondary-color); text-align: right; }
+.debt-name {
+    font-weight: 600;
+    color: var(--primary-color-dark);
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+.debt-details {
+    font-size: 0.9em;
+    color: var(--secondary-color);
+    text-align: right;
+    flex-grow: 1;
+    min-width: 150px;
+}
 
+/* Container for debt action buttons */
+.debt-actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
 
-/* --- Chat Area Styles (Alignment Fix) --- */
+/* --- Chat Area Styles --- */
+#coach-section.card {
+    position: relative;
+}
+
 #chat-container {
     display: flex;
     flex-direction: column;
-    height: 550px;
-    border-radius: 8px;
+    flex-grow: 1;
+    min-height: 400px;
+    max-height: 70vh;
+    border-radius: var(--border-radius-base);
     overflow: hidden;
-    background-color: transparent; /* Let card background show */
+    background-color: transparent;
+    margin-top: 1.5em;
 }
 
 #chat-history {
     flex-grow: 1;
     overflow-y: auto;
     padding: 20px;
-    /* Use card's bg for consistency, or slightly different */
-    background-color: rgba(248, 249, 250, 0.5); /* More transparent history */
+    background-color: rgba(248, 249, 250, 0.6);
     scroll-behavior: smooth;
+    border-bottom: 1px solid var(--border-color);
 }
-/* Keep custom scrollbar */
 
-/* Keep existing message styles and animations */
+/* Custom Scrollbar */
+#chat-history::-webkit-scrollbar { width: 8px; }
+#chat-history::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 4px; }
+#chat-history::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
+#chat-history::-webkit-scrollbar-thumb:hover { background-color: rgba(0,0,0,0.3); }
+
+/* Chat Messages */
 .message {
-    margin-bottom: 18px; padding: 12px 18px; border-radius: 18px; max-width: 85%;
-    word-wrap: break-word; line-height: 1.5;
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    opacity: 0; transform: translateY(15px) scale(0.95);
+    margin-bottom: 15px;
+    padding: 12px 18px;
+    border-radius: 18px;
+    max-width: 88%;
+    word-wrap: break-word;
+    line-height: 1.5;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
 }
-.user-message { /* Keep styles */
+.user-message {
     background: linear-gradient(135deg, var(--primary-color), var(--primary-color-dark));
-    color: var(--light-text); margin-left: auto; border-bottom-right-radius: 5px;
-    box-shadow: 0 3px 8px rgba(13, 110, 253, 0.2);
+    color: var(--light-text);
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.15);
 }
-.ai-message { /* Keep styles */
-    background-color: rgba(233, 236, 239, 0.95); color: var(--dark-text);
-    margin-right: auto; border-bottom-left-radius: 5px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+.ai-message {
+    background-color: rgba(233, 236, 239, 0.9);
+    color: var(--dark-text);
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 .message p { margin: 0; }
-.message strong { color: var(--primary-color-dark); }
-.message em { color: var(--primary-color); }
+.message strong { color: inherit; font-weight: 600; }
+.message em { color: inherit; font-style: italic; }
 
-/* Input Area (Alignment Fix) */
+/* Code formatting in chat */
+.message pre {
+    background-color: rgba(0, 0, 0, 0.06);
+    padding: 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 10px 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.85em;
+}
+.message code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    background-color: rgba(0, 0, 0, 0.06);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+.message pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1em;
+}
+
+/* Chat Input Area */
 #chat-input-area {
-    padding: 10px 12px; /* Fine-tune padding */
-    background-color: rgba(241, 243, 245, 0.7); /* Input area background */
-    border-top: 1px solid var(--border-color); /* Glass edge */
+    padding: 12px 15px;
+    background-color: rgba(241, 243, 245, 0.8);
+    border-top: 1px solid var(--border-color);
     display: flex;
-    gap: 8px; /* Reduce gap slightly */
-    align-items: center; /* Vertical alignment */
-    /* Glass Effect */
+    gap: 10px;
+    align-items: center;
     backdrop-filter: blur(var(--blur-intensity));
     -webkit-backdrop-filter: blur(var(--blur-intensity));
 }
@@ -312,102 +415,163 @@ button:disabled { /* Keep disabled */
     padding: 10px 18px;
     font-size: 1em;
     background-color: var(--input-bg);
-    height: 44px; /* Match button height explicitly */
-    box-sizing: border-box; /* Ensure padding is included */
-    border: 1px solid rgba(0, 0, 0, 0.1); /* Slightly darker border for input */
+    height: 44px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 #chat-input-area input[type="text"]:focus {
-     background-color: rgba(255, 255, 255, 0.95);
-     border-color: var(--primary-color); /* Keep focus border color */
+     background-color: rgba(255, 255, 255, 0.98);
+     border-color: var(--primary-color);
+     box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
 }
 
 #chat-input-area button {
      border-radius: 50%;
-     padding: 0; /* Remove padding if setting fixed size */
-     width: 44px; /* Fixed width */
-     height: 44px; /* Fixed height */
+     padding: 0;
+     width: 44px;
+     height: 44px;
      display: flex;
      justify-content: center;
      align-items: center;
-     font-size: 1.3em; /* Slightly larger icon */
+     font-size: 1.4em;
      flex-shrink: 0;
-     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
-#chat-input-area button::before { /* Keep icon styles */
-    content: '➤'; line-height: 1; transition: transform 0.2s ease;
+#chat-input-area button::before {
+    content: '➤';
+    line-height: 1;
+    transition: transform 0.2s ease;
+    margin-left: 2px;
 }
-#chat-input-area button:hover::before { /* Keep icon hover */
-    transform: rotate(10deg) scale(1.1);
+#chat-input-area button:hover::before {
+    transform: scale(1.1);
 }
 
-
-/* --- Loading Spinner (Alignment Fix) --- */
+/* --- Loading Spinner --- */
 #loading-indicator {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 15px; /* Reduced padding */
+    padding: 10px 15px;
     gap: 10px;
     color: var(--secondary-color);
     font-style: italic;
     font-size: 0.9em;
-    /* Overlay Styling */
     position: absolute;
-    bottom: 63.5px; /* Position precisely above input area (adjust if needed based on input area height) */
-    left: 15px;  /* Add some inset */
-    right: 15px; /* Add some inset */
+    bottom: 45px;
+    left: 20px;
+    right: 20px;
     z-index: 10;
-    /* Glass Effect for Overlay */
-    background-color: rgba(248, 249, 250, 0.7); /* Background */
-    border: 1px solid var(--border-color); /* Edge */
-    border-radius: 6px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Shadow */
-    backdrop-filter: blur(4px); /* Less intense blur for overlay */
-    -webkit-backdrop-filter: blur(4px);
-    /* Hide by default */
-    display: none;
+    background-color: rgba(248, 249, 250, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
-.spinner { /* Keep spinner styles */
-    width: 18px; height: 18px; border: 3px solid rgba(13, 110, 253, 0.2);
-    border-top-color: var(--primary-color); border-radius: 50%;
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(13, 110, 253, 0.2);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
-@keyframes spin { /* Keep spin animation */
+@keyframes spin {
     to { transform: rotate(360deg); }
 }
 
 /* --- Error Styles --- */
-/* Keep existing error styles and shake animation */
 .error {
-    color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb;
-    padding: 10px 15px; border-radius: 6px; margin-top: 10px; font-size: 0.9em;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 12px 18px;
+    border-radius: var(--border-radius-base);
+    margin-top: 15px;
+    font-size: 0.9em;
     animation: shake 0.5s ease-in-out;
 }
-.error-text { color: var(--danger-color); font-style: italic; font-size: 0.9em; }
+.error-text {
+    color: var(--danger-color);
+    font-style: italic;
+    font-size: 0.9em;
+}
 
 /* --- General Animations --- */
-/* Keep existing fadeInUp, fadeInDown, shake, formGroupFadeIn */
-@keyframes fadeInUp { /* Keep */
-    from { opacity: 0; transform: translateY(20px); }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
     to { opacity: 1; transform: translateY(0); }
 }
-@keyframes fadeInDown { /* Keep */
+@keyframes fadeInDown {
      from { opacity: 0; transform: translateY(-20px); }
      to { opacity: 1; transform: translateY(0); }
 }
-@keyframes shake { /* Keep */
+@keyframes shake {
   0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+  20%, 40%, 60%, 80% { transform: translateX(6px); }
 }
-@keyframes formGroupFadeIn { /* Keep */
+@keyframes formGroupFadeIn {
     to { opacity: 1; transform: translateX(0); }
+}
+/* Input shake animation */
+.shake-input {
+    animation: shakeInput 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes shakeInput {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(1px); }
+  30%, 50%, 70% { transform: translateX(-2px); }
+  40%, 60% { transform: translateX(2px); }
 }
 
 /* Accessibility */
-.sr-only { /* Keep */
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 600px) {
+    main.container {
+        grid-template-columns: 1fr; /* Switch to single column */
+        gap: 20px;
+        margin: 20px auto;
+        padding: 0 15px; /* Adjust padding for small screens */
+    }
+    .card { padding: 20px 15px; border-radius: var(--border-radius-base); }
+    h2 { font-size: 1.2em; }
+    button { padding: 10px 18px; font-size: 0.95em; }
+    .button-secondary { padding: 8px 15px; font-size: 0.85em; }
+    #chat-input-area button { width: 40px; height: 40px; font-size: 1.2em; }
+    #chat-input-area input[type="text"] { height: 40px; padding: 8px 15px; }
+    #loading-indicator { bottom: 60px; left: 15px; right: 15px; }
+    footer { padding: 1em 1.5em; font-size: 0.75em; }
+    header { min-height: 75px; padding: 1em 1.5em; }
+    header h1 { font-size: 1.3em; }
+    header p { font-size: 0.85em; }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+    main.container {
+        padding: 0 15px;
+        gap: 25px;
+    }
+     header h1 { font-size: 1.5em; }
+     header p { font-size: 0.9em; }
+     .card { padding: 25px 20px; }
+     h2 { font-size: 1.3em; }
+     #chat-container { min-height: 350px; }
+     #loading-indicator { bottom: 65px; left: 15px; right: 15px; }
+}
+

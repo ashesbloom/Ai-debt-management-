@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-glow"></div> <header>
+    <div class="background-glow"></div>
+    <header>
         <h1>AI Debt Management Coach</h1>
         <p>Add your debts, then chat with the AI coach for strategies & insights!</p>
     </header>
@@ -46,7 +47,10 @@
                 <div id="debt-list">
                     <p>No debts added yet.</p>
                  </div>
-                <button id="clear-debts-btn" class="button-danger" style="display: none;">Clear All Debts</button>
+                 <div class="debt-actions">
+                    <button id="download-debts-btn" class="button-secondary" style="display: none;">Download Report (CSV)</button>
+                    <button id="clear-debts-btn" class="button-danger" style="display: none;">Clear All Debts</button>
+                 </div>
             </div>
         </section>
 
@@ -54,28 +58,19 @@
             <h2>Chat with Your AI Coach</h2>
             <div id="chat-container">
                 <div id="chat-history">
-                    <div class="message ai-message">
-                        <p>Hello! Add your debts above. Then, ask me questions like "Explain the Snowball method", "Which strategy should I use?", or "What if I pay an extra Rs. 500 per month?".</p>
                     </div>
-                </div>
                  <div id="loading-indicator" style="display: none;">
                      <div class="spinner"></div>
                      <span>Coach is thinking...</span>
                  </div>
                  <div id="chat-input-area">
                      <label for="chat-input" class="sr-only">Your message:</label>
-                     <input type="text" id="chat-input" placeholder="Ask the coach (e.g impact of extra Rs. 1000)...">
-                     <button id="send-chat-btn" class="button-primary"></button>
-                 </div>
+                     <input type="text" id="chat-input" placeholder="Ask the coach (e.g., 'explain snowball', 'impact of extra Rs. 1000')...">
+                     <button id="send-chat-btn" class="button-primary" aria-label="Send Message"></button> </div>
                  <div id="error-message-chat" class="error" style="display: none;"></div>
             </div>
         </section>
     </main>
-
-    <footer>
-        <p>Disclaimer: This tool provides informational explanations and estimations only based on the data you provide and your inputs. It does not constitute financial advice. Always consult a qualified financial professional.</p>
-    </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
