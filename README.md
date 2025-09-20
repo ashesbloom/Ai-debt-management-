@@ -238,16 +238,6 @@ The AI coach explains and compares two proven methods:
 - Share with financial advisors
 - Backup your data
 
-## 🤝 Contributing
-
-We welcome contributions to improve the AI Debt Management Coach! Here's how you can help:
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ### Areas for Contribution
 - **UI/UX Improvements**: Enhance the user interface and experience
@@ -263,10 +253,6 @@ We welcome contributions to improve the AI Debt Management Coach! Here's how you
 - Add comments for complex logic
 - Ensure responsive design
 - Test across different browsers
-
-## 📄 License
-
-This project is licensed under the ISC License - see the package.json file for details.
 
 ## 🙏 Acknowledgments
 
